@@ -23,8 +23,8 @@ namespace SpecFlowWithSelenium.StepDefinitions
            _loginPage.NavigateToUrl(_url);
         }
 
-        [When(@"I enter username ""([^""]*)""")]
-        public void WhenIEnterUsername(string userName)
+        [When(@"I type username ""([^""]*)""")]
+        public void WhenITypeUsername(string userName)
         {
             _loginPage.EnterUserName(userName);
         }

@@ -17,6 +17,7 @@ namespace SpecFlowWithSelenium.PageObjects
         By _userNameInput = By.Id("user-name");
         By _passwordInput = By.Id("password");
         By _loginButton = By.Id("login-button");
+        By _invalidMsgHeader = By.XPath("//*[@data-test='error']");
        
 
         public LoginPage(IWebDriver driver, WebDriverWait wait):base(driver, wait)
@@ -47,6 +48,11 @@ namespace SpecFlowWithSelenium.PageObjects
         public string VerifyInventoryPage()
         {
             return driver.Url;
+        }
+
+        public string ErrorMessageText()
+        {
+            return getTextFromElement(_invalidMsgHeader);
         }
 
 
