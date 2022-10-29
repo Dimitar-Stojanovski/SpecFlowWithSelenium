@@ -14,6 +14,9 @@ namespace SpecFlowWithSelenium.Helpers
         string getTextFromElement(By _locator);
         bool isElementDisplayed(By locator);
 
+        void Click(By _locator);
+        void SendKeys(By _locator, string _text);
+
 
 
     }

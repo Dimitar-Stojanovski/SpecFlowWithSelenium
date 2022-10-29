@@ -20,49 +20,107 @@ namespace SpecFlowWithSelenium.Helpers
             this.driver = driver;
             this.wait = wait;
         }
+
+        public void Click(By _locator)
+        {
+            try
+            {
+                findElement(_locator).Click();
+            }
+            catch (Exception ex)when(ex is NoSuchElementException||ex is WebDriverTimeoutException)
+            {
+
+                Assert.Fail($"Exception in Click(): element located by{_locator.ToString()} cannot be found or timeout expired");
+            }
+        }
+
         public IWebElement findElement(By _locator)
         {
-            var _element= wait.Until(e => e.FindElement(_locator));
-            if (_locator==null)
+         
+            try
             {
-                throw new WebDriverTimeoutException($"Exception in findElement(): element located by{_locator.ToString()} cannot be found");
+                var _element = wait.Until(e => e.FindElement(_locator));
+                return _element;
+            }
+            catch (Exception ex) when(ex is WebDriverTimeoutException||ex is NoSuchElementException)
+            {
+
+                Assert.Fail($"Exception in findElement(): element located by{_locator.ToString()} cannot be found or timeout expired");
             }
 
-            return _element;
+           return null;
 
         }
 
         public IList<IWebElement> findElements(By _locator, int index)
         {
-            var elements = (IList<IWebElement>)wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(_locator))[index];
-            if (_locator == null)
+
+
+            try
             {
-                throw new WebDriverTimeoutException($"Exception in findElements(): element located by{_locator.ToString()} cannot be found");
+                var elements = (IList<IWebElement>)wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(_locator))[index];
+                return elements;
             }
-            return elements;
+            catch (Exception ex) when (ex is WebDriverTimeoutException || ex is NoSuchElementException)
+            {
+
+                Assert.Fail($"Exception in findElements(): element located by{_locator.ToString()} cannot be found or timeout expired");
+            }
+
+            return null;
+          
         }
 
         public string getTextFromElement(By _locator)
         {
-            var element = findElement(_locator).Text;
-            if (_locator == null)
+            try
             {
-                throw new WebDriverTimeoutException($"Exception in getTextFromElement(): element located by{_locator.ToString()} cannot be found");
-            }
+                var element = findElement(_locator).Text;
 
-            return element;
+
+                return element;
+            }
+            catch (Exception ex) when (ex is WebDriverTimeoutException || ex is NoSuchElementException)
+            {
+
+                Assert.Fail($"Exception in getTextFromElement(): element located by{_locator.ToString()} cannot be found or timeout expired");
+            }
+            
+            return null;
 
         }
 
         public bool isElementDisplayed(By _locator)
         {
-            var element = findElement(_locator).Displayed;
-            if (_locator == null)
+            try
             {
-                throw new WebDriverTimeoutException($"Exception in getTextFromElement(): element located by{_locator.ToString()} cannot be found");
+                var element = findElement(_locator).Displayed;
+
+
+                return element;
+            }
+            catch (Exception ex) when (ex is WebDriverTimeoutException || ex is NoSuchElementException)
+            {
+
+                Assert.Fail($"Exception in isElementDisplayed(): element located by{_locator.ToString()} cannot be found or timeout expired");
             }
 
-            return element;
+            return true;
+        }
+
+        public void SendKeys(By _locator, string _text)
+        {
+            try
+            {
+                findElement(_locator).Clear();
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+                findElement(_locator).SendKeys(_text);
+            }
+            catch (Exception ex) when(ex is NoSuchElementException||ex is WebDriverTimeoutException)
+            {
+
+                Assert.Fail($"Exception in SendKeys(): element located by{_locator.ToString()} cannot be found or timeout expired");
+            }
         }
     }
 }
