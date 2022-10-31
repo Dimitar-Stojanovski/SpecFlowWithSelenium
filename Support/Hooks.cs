@@ -14,6 +14,10 @@ namespace SpecFlowWithSelenium.Support
         private WebDriverWait _wait;
         private readonly string _browser = "Chrome";
         public DriverBase driverBase;
+        public LoginUser _loginUser;
+
+        private readonly string _userName = "standard_user";
+        private readonly string _password = "secret_sauce";
 
         public Hooks(IObjectContainer objectContainer)
         {
@@ -23,15 +27,18 @@ namespace SpecFlowWithSelenium.Support
 
         // For additional details on SpecFlow hooks see http://go.specflow.org/doc-hooks
 
-        [BeforeScenario("@tag1")]
+        [BeforeScenario("@Test")]
         public void BeforeScenarioWithTag()
         {
             driverBase = new DriverBase();
             _driver = driverBase.Initiate(_browser);
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
             _driver.Manage().Window.Maximize();
+            _driver.Navigate().GoToUrl("https://www.saucedemo.com/");
             objectContainer.RegisterInstanceAs<IWebDriver>(_driver);
             objectContainer.RegisterInstanceAs<WebDriverWait>(_wait);
+            _loginUser = new LoginUser(_driver, _wait);
+            _loginUser.Login(_userName, _password);
         }
 
         [BeforeScenario("@LoginTag")]
