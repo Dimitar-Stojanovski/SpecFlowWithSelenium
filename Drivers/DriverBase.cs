@@ -18,9 +18,9 @@ namespace SpecFlowWithSelenium.Drivers
             switch (browser.ToLowerInvariant())
             {
                 case "chrome":
-                    ChromeOptions chromeOptions = new ChromeOptions();
-                    
-                    chromeOptions.addArguments("--whitelisted-ips=''");
+                    var chromeOptions = new ChromeOptions();
+                    chromeOptions.AddArguments("--headless");
+                    //chromeOptions.AddArguments("--whitelisted-ips=''");
                     driver = new ChromeDriver(chromeOptions);
                     break;
                 case "firefox":
