@@ -16,12 +16,12 @@ namespace SpecFlowWithSelenium.Support
         By _loginButton = By.Id("login-button");
 
         private readonly IWebDriver driver;
-        private readonly WebDriverWait wait;
+        
 
-        public  LoginUser(IWebDriver driver, WebDriverWait wait):base(driver, wait)
+        public  LoginUser(IWebDriver driver):base(driver)
         {
             this.driver = driver;
-            this.wait = wait;
+           
         }
 
         public void Login(string _userName, string _password)

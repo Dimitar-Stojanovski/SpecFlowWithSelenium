@@ -12,9 +12,9 @@ namespace SpecFlowWithSelenium.StepDefinitions
     {
         private readonly HomePage homePage;
 
-        public AddToCartStepDefinitions(IWebDriver driver, WebDriverWait wait)
+        public AddToCartStepDefinitions(IWebDriver driver)
         {
-            homePage = new HomePage(driver, wait);
+            homePage = new HomePage(driver);
         }
         [When(@"I click add to cart\.")]
         public void WhenIClickAddToCart_()

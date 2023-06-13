@@ -15,10 +15,10 @@ namespace SpecFlowWithSelenium.Helpers
         private IWebDriver driver;
         private WebDriverWait wait;
 
-        public MethodsCollection(IWebDriver driver, WebDriverWait wait)
+        public MethodsCollection(IWebDriver driver)
         {
             this.driver = driver;
-            this.wait = wait;
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
         }
 
         public void Click(By _locator)

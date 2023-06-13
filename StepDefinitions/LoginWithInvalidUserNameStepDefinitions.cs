@@ -10,11 +10,14 @@ namespace SpecFlowWithSelenium.StepDefinitions
     [Binding]
     public class LoginWithInvalidUserNameStepDefinitions
     {
-        private readonly LoginPage _loginPage;
 
-        public LoginWithInvalidUserNameStepDefinitions(IWebDriver driver, WebDriverWait wait)
+        LoginPage _loginPage;
+        private readonly IWebDriver driver;
+
+        public LoginWithInvalidUserNameStepDefinitions(IWebDriver driver)
         {
-            _loginPage = new LoginPage(driver, wait);
+            this.driver = driver;
+            _loginPage=new LoginPage(driver);
         }
 
         [Given(@"I navigate to the url ""([^""]*)""")]

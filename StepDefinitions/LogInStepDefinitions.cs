@@ -10,11 +10,14 @@ namespace SpecFlowWithSelenium.StepDefinitions
     [Binding]
     public class LogInStepDefinitions
     {
-        private readonly LoginPage _loginPage;
+        
+       private IWebDriver driver;
+        LoginPage _loginPage;
 
-        public LogInStepDefinitions(IWebDriver driver, WebDriverWait wait)
+        public LogInStepDefinitions(IWebDriver driver)
         {
-            _loginPage = new LoginPage(driver, wait);
+            this.driver = driver;
+            _loginPage = new LoginPage(driver);
         }
 
         [Given(@"I navigate to the url page ""([^""]*)""")]

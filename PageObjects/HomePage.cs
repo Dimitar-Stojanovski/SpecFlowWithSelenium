@@ -12,15 +12,15 @@ namespace SpecFlowWithSelenium.PageObjects
     public class HomePage:MethodsCollection
     {
         private readonly IWebDriver driver;
-        private readonly WebDriverWait wait;
+        
 
         private By _backPackAddToCartBtn = By.Id("add-to-cart-sauce-labs-backpack");
         private By _shoppingCartBadgeName = By.ClassName("shopping_cart_badge");
 
-        public HomePage(IWebDriver driver, WebDriverWait wait):base(driver, wait)
+        public HomePage(IWebDriver driver):base(driver)
         {
             this.driver = driver;
-            this.wait = wait;
+           
         }
 
         public void ClickAddToCartBackBack()
