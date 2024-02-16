@@ -12,7 +12,7 @@ namespace SpecFlowWithSelenium.Helpers
 {
     public class MethodsCollection : IMethodsCollection
     {
-        private IWebDriver driver;
+        protected IWebDriver driver { get; set; }
         private WebDriverWait wait;
 
         public MethodsCollection(IWebDriver driver)
@@ -20,6 +20,8 @@ namespace SpecFlowWithSelenium.Helpers
             this.driver = driver;
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
         }
+
+        
 
         public void Click(By _locator)
         {
@@ -39,7 +41,11 @@ namespace SpecFlowWithSelenium.Helpers
          
             try
             {
-                var _element = wait.Until(e => e.FindElement(_locator));
+                var _element = wait.Until<IWebElement>(x =>
+                {
+                    var tempElement = x.FindElement(_locator);
+                    return tempElement.Displayed && tempElement.Enabled ? tempElement:null;
+                });
                 return _element;
             }
             catch (Exception ex) when(ex is WebDriverTimeoutException||ex is NoSuchElementException)
@@ -86,7 +92,7 @@ namespace SpecFlowWithSelenium.Helpers
                 Assert.Fail($"Exception in getTextFromElement(): element located by{_locator.ToString()} cannot be found or timeout expired");
             }
             
-            return null;
+            return string.Empty;
 
         }
 
@@ -105,7 +111,7 @@ namespace SpecFlowWithSelenium.Helpers
                 Assert.Fail($"Exception in isElementDisplayed(): element located by{_locator.ToString()} cannot be found or timeout expired");
             }
 
-            return true;
+            return false;
         }
 
         public void SendKeys(By _locator, string _text)
@@ -113,7 +119,7 @@ namespace SpecFlowWithSelenium.Helpers
             try
             {
                 findElement(_locator).Clear();
-                Thread.Sleep(TimeSpan.FromSeconds(1));
+               
                 findElement(_locator).SendKeys(_text);
             }
             catch (Exception ex) when(ex is NoSuchElementException||ex is WebDriverTimeoutException)

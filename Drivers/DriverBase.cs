@@ -20,7 +20,7 @@ namespace SpecFlowWithSelenium.Drivers
                 case "chrome":
                     var chromeOptions = new ChromeOptions();
                     //chromeOptions.AddArguments("--headless");
-                    chromeOptions.AddArguments("--whitelisted-ips=''");
+                    //chromeOptions.AddArguments("--whitelisted-ips=''");
                     driver = new ChromeDriver(chromeOptions);
                     break;
                 case "firefox":

@@ -23,19 +23,17 @@ namespace SpecFlowWithSelenium.PageObjects
         public LoginPage(IWebDriver driver): base(driver) { this.driver = driver; }
 
         public void NavigateToUrl(string _url)=> driver.Navigate().GoToUrl(_url);
+
+        public void EnterUserName(string _userName) => SendKeys(_userNameInput, _userName);
+
+
+        public void EnterPassword(string _password) => SendKeys(_passwordInput, _password);
+
+        public void ClickLoginButton() => Click(_loginButton);
+
+
+        public string VerifyInventoryPage() => driver.Url;
         
-        public void EnterUserName(string _userName)=> findElement(_userNameInput).SendKeys(_userName);
-       
-
-        public void EnterPassword(string _password) => findElement(_passwordInput).SendKeys(_password);
-
-        public void ClickLoginButton()=> findElement(_loginButton).Click();
-        
-
-        public string VerifyInventoryPage()
-        {
-            return driver.Url;
-        }
 
         public string ErrorMessageText() => getTextFromElement(_invalidMsgHeader);
        

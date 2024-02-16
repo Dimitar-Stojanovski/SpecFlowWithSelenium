@@ -9,6 +9,7 @@ namespace SpecFlowWithSelenium.Helpers
 {
     public interface IMethodsCollection
     {
+       
         IWebElement findElement(By _locator);
         IList<IWebElement> findElements(By _locator, int index);
         string getTextFromElement(By _locator);

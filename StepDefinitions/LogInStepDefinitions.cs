@@ -12,7 +12,7 @@ namespace SpecFlowWithSelenium.StepDefinitions
     {
         
        private IWebDriver driver;
-        LoginPage _loginPage;
+       ILoginPage _loginPage;
 
         public LogInStepDefinitions(IWebDriver driver)
         {
@@ -49,5 +49,36 @@ namespace SpecFlowWithSelenium.StepDefinitions
         {
             Assert.AreEqual(_loginPage.VerifyInventoryPage(), inventoryPage);
         }
+
+        [Given(@"I navigate to the page")]
+        public void GivenINavigateToThePage()
+        {
+            throw new PendingStepException();
+        }
+
+        [Given(@"I enter username")]
+        public void GivenIEnterUsername()
+        {
+            throw new PendingStepException();
+        }
+
+        [Given(@"I enter Password")]
+        public void GivenIEnterPassword()
+        {
+            throw new PendingStepException();
+        }
+
+        [Given(@"click login button")]
+        public void GivenClickLoginButton()
+        {
+            throw new PendingStepException();
+        }
+
+        [Then(@"I need to see error message displayed")]
+        public void ThenINeedToSeeErrorMessageDisplayed()
+        {
+            throw new PendingStepException();
+        }
+
     }
 }
