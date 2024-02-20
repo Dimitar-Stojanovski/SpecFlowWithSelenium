@@ -2,8 +2,10 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SpecFlowWithSelenium.PageObjects;
+using SpecFlowWithSelenium.Utils.Models;
 using System;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace SpecFlowWithSelenium.StepDefinitions
 {
@@ -12,7 +14,7 @@ namespace SpecFlowWithSelenium.StepDefinitions
     {
         
        private IWebDriver driver;
-       ILoginPage _loginPage;
+       LoginPage _loginPage;
 
         public LogInStepDefinitions(IWebDriver driver)
         {
@@ -50,35 +52,44 @@ namespace SpecFlowWithSelenium.StepDefinitions
             Assert.AreEqual(_loginPage.VerifyInventoryPage(), inventoryPage);
         }
 
-        [Given(@"I navigate to the page")]
-        public void GivenINavigateToThePage()
+
+
+        [When(@"I enter the following usernames")]
+        public void WhenIEnterTheFollowingUsernames(Table table)
         {
-            throw new PendingStepException();
+            var data = table.CreateSet<LoginModel>();
+            foreach (var item in data)
+            {
+                _loginPage.EnterUserName(item.Username);
+            }
+            
         }
 
-        [Given(@"I enter username")]
-        public void GivenIEnterUsername()
+        [When(@"I enter password")]
+        public void WhenIEnterPassword(Table table)
         {
-            throw new PendingStepException();
+            var data = table.CreateSet<LoginModel>();
+            foreach (var item in data)
+            {
+                _loginPage.EnterPassword(item.Password);
+            }
         }
 
-        [Given(@"I enter Password")]
-        public void GivenIEnterPassword()
+        [When(@"I enter the following (.*) and (.*)")]
+        public void WhenIEnterTheFollowingStandard_UserAndSecret_Sauce(string username,string password)
         {
-            throw new PendingStepException();
+            _loginPage.EnterUserName(username);
+            _loginPage.EnterPassword(password);
         }
 
-        [Given(@"click login button")]
-        public void GivenClickLoginButton()
-        {
-            throw new PendingStepException();
-        }
 
-        [Then(@"I need to see error message displayed")]
-        public void ThenINeedToSeeErrorMessageDisplayed()
-        {
-            throw new PendingStepException();
-        }
+
+
+
+
+
+
+
 
     }
 }

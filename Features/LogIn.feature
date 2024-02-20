@@ -11,10 +11,35 @@ Scenario: Login with valid user name and password on Sauce Demo page.
 	And  Click login button
 	Then Verify that I am seeing the inventories with url "https://www.saucedemo.com/inventory.html".
 
-	Scenario: Log in with invalid username and password
+	
+
+	@LoginTag
+	Scenario: Login using data driven tests
 	Given I navigate to the url page "https://www.saucedemo.com/"
-	When I enter username "standard_user"
-	And  I enter password "secret_saucee"
+	When I enter the following usernames
+	 | username        |
+	 | standard_user   |
+	 
+	
+	And  I enter password
+	 | password     |
+	 | secret_sauce |
+	 
 	And  Click login button
-	Then I need to see error message displayed
+	Then Verify that I am seeing the inventories with url "https://www.saucedemo.com/inventory.html".
+	
+	@LoginTag
+	Scenario: Login using keys
+	Given I navigate to the url page "https://www.saucedemo.com/"
+	When I enter the following <usernames> and <password>
+	And  Click login button
+	Then Verify that I am seeing the inventories with url "https://www.saucedemo.com/inventory.html".
+	 
+	 Examples: 
+	 | usernames     | password     |
+	 | standard_user | secret_sauce |
+	 | standard_user | secret_sauce |
+	 | standard_user | secret_sauce |
+	
+
 
