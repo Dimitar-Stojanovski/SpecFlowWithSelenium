@@ -63,7 +63,7 @@ namespace SpecFlowWithSelenium.Support
         public void AfterScenario()
         {
            IWebDriver driver = objectContainer.Resolve<IWebDriver>();
-            GenerateReport();
+            //GenerateReport();
             driver.Quit();
             
         }
