@@ -16,7 +16,7 @@ namespace SpecFlowWithSelenium.Support
         private readonly IObjectContainer objectContainer;
         private IWebDriver _driver;
         //private WebDriverWait _wait;
-        private readonly string _browser = "Chrome";
+        private readonly string _browser = "chrome";
         public DriverBase driverBase;
         public LoginUser _loginUser;
        
@@ -44,7 +44,7 @@ namespace SpecFlowWithSelenium.Support
             
             _loginUser = new LoginUser(_driver);
             _loginUser.Login(_userName, _password);
-            GenerateReport();
+           
         }
 
         [BeforeScenario("@LoginTag")]
@@ -56,28 +56,19 @@ namespace SpecFlowWithSelenium.Support
             _driver.Manage().Window.Maximize();
             objectContainer.RegisterInstanceAs<IWebDriver>(_driver);
             
-            GenerateReport();
+          
         }
 
         [AfterScenario]
         public void AfterScenario()
         {
            IWebDriver driver = objectContainer.Resolve<IWebDriver>();
-            //GenerateReport();
+         
             driver.Quit();
             
         }
 
 
-        public void GenerateReport()
-        {
-            var extent = new ExtentReports();
-            var htmlReporter = new ExtentHtmlReporter(@"D:\Workspace\SpecFlowWithSelenium\Report" +DateTime.Now.ToString("MM-dd-yyyy")+".html");
-            extent.AttachReporter(htmlReporter);
-            extent.Flush();
-           
-
-           
-        }
+       
     }
 }

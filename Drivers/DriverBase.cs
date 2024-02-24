@@ -15,21 +15,32 @@ namespace SpecFlowWithSelenium.Drivers
 
         public IWebDriver Initiate(string browser)
         {
-            switch (browser.ToLowerInvariant())
+            return browser switch
             {
-                case "chrome":
-                    var chromeOptions = new ChromeOptions();
-                    chromeOptions.AddArgument("--headless=new");
-                    //chromeOptions.AddArguments("--whitelisted-ips=''");
-                    driver = new ChromeDriver(chromeOptions);
-                    break;
-                case "firefox":
-                    driver = new FirefoxDriver();
-                    break;
-                default:
-                    throw new ArgumentException($"Browser is not valid{browser}");
-            }
+                "chrome" => GetChromeDriver(),
+                "firefox" => GetFirefoxDriver(),
+                _ => throw new ArgumentException($"Browser is not valid {browser}")
+            };
+        }
 
+        private IWebDriver GetChromeDriver()
+        {
+           
+            driver = new ChromeDriver(GetChromeOptions());
+            return driver;
+        }
+
+        private ChromeOptions GetChromeOptions()
+        {
+            var chromeOptions = new ChromeOptions();
+            chromeOptions.AddArguments("--headless=new");
+            return chromeOptions;
+        }
+
+
+        private IWebDriver GetFirefoxDriver()
+        {
+            driver = new FirefoxDriver();
             return driver;
         }
     }
