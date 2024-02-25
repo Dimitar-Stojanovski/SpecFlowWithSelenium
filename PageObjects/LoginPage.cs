@@ -11,7 +11,7 @@ namespace SpecFlowWithSelenium.PageObjects
 {
     public class LoginPage : MethodsCollection,ILoginPage
     {
-        private IWebDriver driver = null;
+        
       
 
         By _userNameInput = By.Id("user-name");
@@ -20,9 +20,9 @@ namespace SpecFlowWithSelenium.PageObjects
         By _invalidMsgHeader = By.XPath("//*[@data-test='error']");
         
 
-        public LoginPage(IWebDriver driver): base(driver) { this.driver = driver; }
+        public LoginPage(IWebDriver driver): base(driver) { Driver = driver; }
 
-        public void NavigateToUrl(string _url)=> driver.Navigate().GoToUrl(_url);
+        public void NavigateToUrl(string _url)=> Driver.Navigate().GoToUrl(_url);
 
         public void EnterUserName(string _userName) => SendKeys(_userNameInput, _userName);
 
@@ -32,7 +32,7 @@ namespace SpecFlowWithSelenium.PageObjects
         public void ClickLoginButton() => Click(_loginButton);
 
 
-        public string VerifyInventoryPage() => driver.Url;
+        public string VerifyInventoryPage() => Driver.Url;
         
 
         public string ErrorMessageText() => getTextFromElement(_invalidMsgHeader);

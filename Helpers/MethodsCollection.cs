@@ -12,29 +12,19 @@ namespace SpecFlowWithSelenium.Helpers
 {
     public class MethodsCollection : IMethodsCollection
     {
-        protected IWebDriver driver { get; set; }
+        protected IWebDriver Driver { get; set; }
         private WebDriverWait wait;
 
         public MethodsCollection(IWebDriver driver)
         {
-            this.driver = driver;
+            Driver = driver;
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
         }
 
         
 
-        public void Click(By _locator)
-        {
-            try
-            {
-                findElement(_locator).Click();
-            }
-            catch (Exception ex)when(ex is NoSuchElementException||ex is WebDriverTimeoutException)
-            {
-
-                Assert.Fail($"Exception in Click(): element located by{_locator.ToString()} cannot be found or timeout expired");
-            }
-        }
+        public void Click(By _locator) => findElement(_locator).Click();
+       
 
         public IWebElement findElement(By _locator)
         {
